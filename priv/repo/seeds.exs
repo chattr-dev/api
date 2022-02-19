@@ -13,6 +13,12 @@
 
 alias PfApi.Repo
 alias PfApi.Schema.User
+alias PfApi.Schema.Project
+alias PfApi.Schema.Client
+
+Repo.delete_all(User)
+Repo.delete_all(Project)
+Repo.delete_all(Client)
 
 Repo.insert!(%User{
     address: "52 Puppet Ln",
@@ -23,9 +29,6 @@ Repo.insert!(%User{
     zip: "43215"
 })
 
-# field :address, :string
-# field :authid, :string
-# field :city, :string
-# field :email, :string
-# field :state, :string
-# field :zip, :string
+Repo.insert!(%Project{type: "website"})
+
+Repo.insert!(%Client{name: "metallix"})
