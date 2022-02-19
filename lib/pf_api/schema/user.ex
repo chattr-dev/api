@@ -1,6 +1,7 @@
 defmodule PfApi.Schema.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias PfApi.Repo
 
   schema "users" do
     field :address, :string
@@ -18,5 +19,9 @@ defmodule PfApi.Schema.User do
     user
     |> cast(attrs, [:address, :city, :state, :zip, :email, :authid])
     |> validate_required([:address, :city, :state, :zip, :email, :authid])
+  end
+
+  def get_by_id(id) do
+    Repo.get_by(__MODULE__, authid: id)
   end
 end

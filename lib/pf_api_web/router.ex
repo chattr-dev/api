@@ -7,7 +7,7 @@ defmodule PfApiWeb.Router do
 
   scope "/api", PfApiWeb do
     pipe_through :api
-
+    get "/v1/user/:id", UserController, :show
     get "/v1/healthcheck", HealthCheckController, :index
   end
 end
