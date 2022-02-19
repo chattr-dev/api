@@ -5,7 +5,7 @@ config :pf_api, PfApi.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "pf_api_dev",
+  database: "pf",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
