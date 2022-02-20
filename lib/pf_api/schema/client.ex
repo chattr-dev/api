@@ -2,14 +2,13 @@ defmodule PfApi.Schema.Client do
   use Ecto.Schema
   import Ecto.Changeset
   alias PfApi.Schema.User
-  alias PfApi.Schema.UserClient
+  alias PfApi.Schema.Project
 
   @derive {Jason.Encoder, only: [:name]}
 
   schema "clients" do
     field :name, :string
-    many_to_many :users, User, join_through: UserClient
-
+    has_many :projects, Project
     timestamps()
   end
 
@@ -29,14 +28,10 @@ end
 #   "email": "james_h@gmail.com",
 #   "state": "OH",
 #   "zip": "43215",
-#   "clients": [
+#   "projects": [
 #       {
-#           "name": "fakeClient",
-#           "projects": [
-#               {
-#                   "name": "fakeproject"
-#               }
-#           ]
+#           "type": "website",
+#           "client": {name: "metallix"}
 #       }
 #   ]
 # }

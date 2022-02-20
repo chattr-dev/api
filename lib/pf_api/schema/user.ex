@@ -2,10 +2,10 @@ defmodule PfApi.Schema.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias PfApi.Repo
-  alias PfApi.Schema.Client
-  alias PfApi.Schema.UserClient
+  alias PfApi.Schema.UserProject
+  alias PfApi.Schema.Project
 
-  @derive {Jason.Encoder, only: [:address, :authid, :city, :email, :state, :zip, :clients]}
+  @derive {Jason.Encoder, only: [:address, :authid, :city, :email, :state, :zip, :projects]}
 
   schema "users" do
     field :address, :string
@@ -14,7 +14,7 @@ defmodule PfApi.Schema.User do
     field :email, :string
     field :state, :string
     field :zip, :string
-    many_to_many :clients, Client, join_through: UserClient
+    many_to_many :projects, Project, join_through: UserProject
 
     timestamps()
   end
@@ -27,6 +27,6 @@ defmodule PfApi.Schema.User do
   end
 
   def get_by_id(id) do
-    Repo.get_by(__MODULE__, id: id) |> Repo.preload([:clients])
+    Repo.get_by(__MODULE__, id: id) |> Repo.preload([:projects])
   end
 end
