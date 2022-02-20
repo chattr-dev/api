@@ -27,6 +27,6 @@ defmodule PfApi.Schema.User do
   end
 
   def get_by_id(id) do
-    Repo.get_by(__MODULE__, id: id) |> Repo.preload([:projects])
+    Repo.get_by(__MODULE__, id: id) |> Repo.preload([projects: [:client]])
   end
 end
