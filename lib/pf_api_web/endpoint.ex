@@ -10,6 +10,8 @@ defmodule PfApiWeb.Endpoint do
     signing_salt: "ZOm7xIMr"
   ]
 
+  plug Corsica, max_age: 600, origins: "*"
+
   socket "/socket", PfApiWeb.UserSocket,
     websocket: true,
     longpoll: false

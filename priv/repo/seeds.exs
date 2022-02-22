@@ -17,6 +17,7 @@ alias PfApi.Schema.Project
 alias PfApi.Schema.Client
 alias PfApi.Schema.UserProject
 
+Repo.delete_all(UserProject)
 Repo.delete_all(User)
 Repo.delete_all(Project)
 Repo.delete_all(Client)
@@ -34,5 +35,7 @@ Repo.insert!(%User{
 Repo.insert!(%Client{name: "metallix", id: 125})
 
 Repo.insert!(%Project{type: "website", id: 130, client_id: 125})
+Repo.insert!(%Project{type: "Online Store", id: 145, client_id: 125})
 
 Repo.insert!(%UserProject{user_id: 120, project_id: 130})
+Repo.insert!(%UserProject{user_id: 120, project_id: 145})
