@@ -4,7 +4,7 @@ defmodule PfApiWeb.UserChannel do
   @impl true
   def join("user:" <> user, payload, socket) do
     if authorized?(payload) do
-      {:ok, socket}
+      {:ok, socket |> assign(:user, user)}
     else
       {:error, %{reason: "unauthorized"}}
     end
@@ -22,7 +22,28 @@ defmodule PfApiWeb.UserChannel do
     {:noreply, socket}
   end
 
-  # Eventually implement some sort of auth0 verification???
+  @impl true
+  def handle_in("timer_start", _args, socket) do
+    IO.inspect(socket.assigns.user)
+    {:reply, :ok, socket}
+  end
+
+  @impl true
+  def handle_in("timer_pause", _args, socket) do
+    {:reply, :ok, socket}
+  end
+
+  @impl true
+  def handle_in("timer_resume", _args, socket) do
+    {:reply, :ok, socket}
+  end
+
+  @impl true
+  def handle_in("timer_reset", _args, socket) do
+    {:reply, :ok, socket}
+  end
+
+  # Eventually implement some sort of auth0 verification
   defp authorized?(_payload) do
     true
   end
