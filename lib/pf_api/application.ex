@@ -15,9 +15,10 @@ defmodule PfApi.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: PfApi.PubSub},
       # Start the Endpoint (http/https)
-      PfApiWeb.Endpoint
+      PfApiWeb.Endpoint,
       # Start a worker by calling: PfApi.Worker.start_link(arg)
       # {PfApi.Worker, arg}
+      PfApiWeb.UserPresence
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

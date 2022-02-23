@@ -5,7 +5,7 @@ defmodule PfApi.Schema.User do
   alias PfApi.Schema.UserProject
   alias PfApi.Schema.Project
 
-  @derive {Jason.Encoder, only: [:address, :authid, :city, :email, :state, :zip, :projects]}
+  @derive {Jason.Encoder, only: [:address, :authid, :city, :email, :state, :zip, :projects, :id]}
 
   schema "users" do
     field :address, :string

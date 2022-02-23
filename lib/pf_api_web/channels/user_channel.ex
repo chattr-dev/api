@@ -1,30 +1,33 @@
 defmodule PfApiWeb.UserChannel do
   use PfApiWeb, :channel
+  alias PfApiWeb.UserPresence
 
   @impl true
   def join("user:" <> user, payload, socket) do
     if authorized?(payload) do
-      {:ok, socket |> assign(:user, user)}
+      case UserPresence.get_by_key("user:" <> user, payload["id"]) do
+        [] -> 
+          send(self(), :after_join)
+          {:ok, socket |> assign(:user, %{user: payload})}
+        res -> 
+          {:ok, res, socket}
+      end
     else
       {:error, %{reason: "unauthorized"}}
     end
   end
 
   @impl true
-  def handle_in("ping", payload, socket) do
-    IO.inspect(label: "Pong")
-    {:reply, {:ok, payload}, socket}
-  end
-
-  @impl true
-  def handle_in("shout", payload, socket) do
-    broadcast(socket, "shout", payload)
+  def handle_info(:after_join, %{assigns: %{user: %{user: user}}} = socket) do
+    {:ok, _} = UserPresence.track(socket, user["id"], %{
+      projects: user["projects"]
+    })
     {:noreply, socket}
   end
 
   @impl true
-  def handle_in("timer_start", _args, socket) do
-    IO.inspect(socket.assigns.user)
+  def handle_in("timer_start", %{"projectId" => _projectId, "userId" => userId}, socket) do
+    UserPresence.get_by_key("user:" <> "#{userId}", userId) |> IO.inspect(label: "user:")
     {:reply, :ok, socket}
   end
 

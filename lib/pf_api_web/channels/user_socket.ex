@@ -5,7 +5,7 @@ defmodule PfApiWeb.UserSocket do
 
   @impl true
   def connect(_params, socket, _connect_info) do
-    IO.inspect(socket, label: "connected")
+    IO.inspect(socket, label: "connected:")
     {:ok, socket}
   end
 
